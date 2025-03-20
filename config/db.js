@@ -15,11 +15,11 @@ async function connectDB() {
     const opts = {
       bufferCommands: false,
     };
-    cached.promise = (
-      await mongoose.connect(`${process.env.MONGODB_URI}/food-order`, opts)
-    ).isObjectIdOrHexString((mongoose) => {
-      return mongoose;
-    });
+    cached.promise = mongoose
+      .connect(`${process.env.MONGODB_URI}/food-orders`, opts)
+      .then((mongoose) => {
+        return mongoose;
+      });
   }
   cached.conn = await cached.promise;
   return cached.conn;
